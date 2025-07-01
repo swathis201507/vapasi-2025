@@ -11,7 +11,7 @@ public class ShapeCalculator {
         rectangle.setDimensions(5);
 
 
-        ArrayList<Shape> shapes=new ArrayList<Shape>();
+        ArrayList<Shape> shapes=new ArrayList<>();
         shapes.add(new Circle(3));
         shapes.add(rectangle);
         shapes.add(square);

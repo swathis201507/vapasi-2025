@@ -1,5 +1,5 @@
 public class Triangle extends Shape{
-    private double side1,side2,side3;
+    private final double side1,side2,side3;
 
     public Triangle(double side1, double side2, double side3) {
         this.side1 = side1;
