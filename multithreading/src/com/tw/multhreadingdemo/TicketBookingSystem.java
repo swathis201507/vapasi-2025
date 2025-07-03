@@ -1,7 +1,10 @@
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 class BookingTask implements Runnable {
+    private static final Logger logger = Logger.getLogger(BookingTask.class.getName());
     private final int bookingId;
 
     public BookingTask(int bookingId) {
@@ -9,7 +12,7 @@ class BookingTask implements Runnable {
     }
 
     public void run() {
-        System.out.println("Booking received for id: " + bookingId);
+        logger.info("Booking received for id: " + bookingId);
         processPayment();
         confirmTicket();
     }
@@ -18,27 +21,32 @@ class BookingTask implements Runnable {
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
-            throw new RuntimeException();
+            logger.log(Level.SEVERE, "Payment interrupted for id: " + bookingId, e);
+            Thread.currentThread().interrupt(); // Preserve interrupt status
         }
-        System.out.println("Payment processing for id: " + bookingId);
+        logger.info("Payment processing for id: " + bookingId);
     }
 
     private void confirmTicket() {
-        System.out.println("Ticket confirmed for id: " + bookingId);
+        logger.info("Ticket confirmed for id: " + bookingId);
     }
 }
 
 public class TicketBooking {
+    private static final Logger logger = Logger.getLogger(TicketBooking.class.getName());
+
     public static void main(String[] args) {
         int noOfBookingReq = 5;
-        try (ExecutorService pool = Executors.newFixedThreadPool(3)) {
+        ExecutorService pool = Executors.newFixedThreadPool(3);
 
+        try {
             for (int i = 1; i <= noOfBookingReq; i++) {
                 BookingTask t1 = new BookingTask(i);
                 pool.execute(t1);
             }
-
+        } finally {
             pool.shutdown();
+            logger.info("All booking tasks submitted. Thread pool shutting down.");
         }
     }
 }
