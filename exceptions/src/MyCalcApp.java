@@ -13,8 +13,8 @@ public class MyCalcApp {
             System.out.println("Double of the input: " + result);
         } catch (MyArithException e) {
             System.out.println("Error: " + e.getMessage());
+        } finally {
+            scanner.close();
         }
-
-        scanner.close();
     }
 }
