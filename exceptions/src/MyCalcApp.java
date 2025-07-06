@@ -1,6 +1,11 @@
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MyCalcApp {
+
+    private static final Logger logger = Logger.getLogger(MyCalcApp.class.getName());
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Calculator calc = new Calculator();
@@ -10,11 +15,12 @@ public class MyCalcApp {
 
         try {
             double result = calc.caldouble(input);
-            System.out.println("Double of the input: " + result);
+            logger.info("Double of the input: " + result);
         } catch (MyArithException e) {
-            System.out.println("Error: " + e.getMessage());
+            logger.log(Level.SEVERE, "Error: " + e.getMessage(), e);
         } finally {
             scanner.close();
+            logger.info("Scanner closed, application ended.");
         }
     }
 }
