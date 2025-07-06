@@ -1,0 +1,4 @@
+A spent 100 for Snacks for A, B, C, D
+A spent 100 for Lunch for A, B, C, D
+B spent 500 for Taxi for C, D
+D spent 300 for Bus for A, B
