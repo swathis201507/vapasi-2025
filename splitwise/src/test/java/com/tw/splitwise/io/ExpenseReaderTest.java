@@ -5,10 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
-import java.nio.file.Files;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class ExpenseReaderTest {
 
@@ -22,7 +19,6 @@ public class ExpenseReaderTest {
 
         ExpenseReader reader = new ExpenseReader(tempFile.getAbsolutePath());
         List<String> lines = reader.readLines();
-
         assertEquals(2, lines.size());
         assertEquals("A spent 100 for Snacks for A, B, C", lines.get(0));
         assertEquals("B spent 50 for Taxi for B, C", lines.get(1));
