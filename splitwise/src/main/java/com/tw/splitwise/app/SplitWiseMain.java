@@ -24,6 +24,9 @@ public class SplitWiseMain {
 
         try {
             List<String> lines = reader.readLines();
+            if (lines == null || lines.isEmpty()) {
+                throw new ExpenseParserException("Input line is null or empty");
+            }
             List<Expense> expenses = new ArrayList<>();
             for (String line : lines) {
                 Expense expense = parser.parse(line);
