@@ -1,6 +1,7 @@
 package com.tw.splitwise.app;
 
 import com.tw.splitwise.entity.Expense;
+import com.tw.splitwise.exception.ExpenseParserException;
 import com.tw.splitwise.io.ConfigLoader;
 import com.tw.splitwise.io.ExpenseParser;
 import com.tw.splitwise.io.ExpenseReader;
@@ -13,7 +14,7 @@ import java.util.Map;
 
 public class SplitWiseMain {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ExpenseParserException {
 
         String filePath = ConfigLoader.getFilePath();
         ExpenseReader reader = new ExpenseReader(filePath);
@@ -25,16 +26,17 @@ public class SplitWiseMain {
             List<String> lines = reader.readLines();
             List<Expense> expenses = new ArrayList<>();
             for (String line : lines) {
-                parser.parse(line).ifPresent(expenses::add);
+                Expense expense = parser.parse(line);
+                if (expense != null) {
+                    expenses.add(expense);
+                }
             }
-
             Map<String, Map<String, Double>> debtMap = calculator.calculateDebts(expenses);
             printer.printDebts(debtMap);
 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
 
     }
 }
