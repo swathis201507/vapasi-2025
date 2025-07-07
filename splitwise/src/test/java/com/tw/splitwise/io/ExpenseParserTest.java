@@ -3,9 +3,7 @@ package com.tw.splitwise.io;
 import com.tw.splitwise.entity.Expense;
 import com.tw.splitwise.exception.ExpenseParserException;
 import org.junit.jupiter.api.Test;
-
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class ExpenseParserTest {
