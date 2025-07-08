@@ -3,6 +3,7 @@ package com.tw.splitwise.service;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,6 +18,8 @@ public class ExpensePrinterTest {
         debtMap.put("A", inner);
 
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outContent));
         new ExpensePrinter().printDebts(debtMap);
 
         String output = outContent.toString().trim();
