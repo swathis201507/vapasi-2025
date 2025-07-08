@@ -18,7 +18,6 @@ public class ExpensePrinterTest {
         debtMap.put("A", inner);
 
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outContent));
         new ExpensePrinter().printDebts(debtMap);
 
